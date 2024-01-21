@@ -1,12 +1,11 @@
 {
-  "Author": "your name here",
-  "Name": "Sample Plugin",
-  "Punchline": "A short one-liner that shows up in /xlplugins.",
-  "Description": "A description that shows up in /xlplugins. List any major slash-command(s).",
+  "Author": "Switch.lol",
+  "Name": "Cross Input",
+  "Punchline": "A plugin to help you rebind keys.",
+  "Description": "This plugin helps you rebind keys at the window-level. use /xinput to open the configuration window.",
   "ApplicableVersion": "any",
   "Tags": [
-    "sample",
-    "plugin",
-    "goats"
+    "input",
+    "plugin"
   ]
 }
