@@ -6,7 +6,7 @@
   "ApplicableVersion": "any",
   "LastUpdate": "1703330345",
   "RepoUrl": "https://github.com/Switch-9867/XInput",
-  "DownloadLinkInstall": "https://repo.caraxian.com/plugins/SimpleHeels/0.8.4.1.zip",
-  "DownloadLinkTesting": "https://repo.caraxian.com/plugins/SimpleHeels/0.8.4.1.zip",
-  "DownloadLinkUpdate": "https://repo.caraxian.com/plugins/SimpleHeels/0.8.4.1.zip"
+  "DownloadLinkInstall": "https://github.com/Switch-9867/XInput/releases/download/release/0.1.0.zip",
+  "DownloadLinkTesting": "https://github.com/Switch-9867/XInput/releases/download/release/0.1.0.zip",
+  "DownloadLinkUpdate": "https://github.com/Switch-9867/XInput/releases/download/release/0.1.0.zip"
 }
