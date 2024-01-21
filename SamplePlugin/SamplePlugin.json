@@ -4,8 +4,9 @@
   "Punchline": "A plugin to help you rebind keys.",
   "Description": "This plugin helps you rebind keys at the window-level. use /xinput to open the configuration window.",
   "ApplicableVersion": "any",
-  "Tags": [
-    "input",
-    "plugin"
-  ]
+  "LastUpdate": "1703330345",
+  "RepoUrl": "https://github.com/Switch-9867/XInput",
+  "DownloadLinkInstall": "https://repo.caraxian.com/plugins/SimpleHeels/0.8.4.1.zip",
+  "DownloadLinkTesting": "https://repo.caraxian.com/plugins/SimpleHeels/0.8.4.1.zip",
+  "DownloadLinkUpdate": "https://repo.caraxian.com/plugins/SimpleHeels/0.8.4.1.zip"
 }
