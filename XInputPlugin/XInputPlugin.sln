@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XInputPlugin", "XInputPlugin\XInputPlugin.csproj", "{01115235-EC10-4240-A27F-012A1AC4CD59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XInputPlugin", "XInputPlugin.csproj", "{68556AE1-E6A1-4E72-A88E-D9C003DA17D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{01115235-EC10-4240-A27F-012A1AC4CD59}.Debug|x64.ActiveCfg = Debug|x64
-		{01115235-EC10-4240-A27F-012A1AC4CD59}.Debug|x64.Build.0 = Debug|x64
-		{01115235-EC10-4240-A27F-012A1AC4CD59}.Release|x64.ActiveCfg = Release|x64
-		{01115235-EC10-4240-A27F-012A1AC4CD59}.Release|x64.Build.0 = Release|x64
+		{68556AE1-E6A1-4E72-A88E-D9C003DA17D5}.Debug|x64.ActiveCfg = Debug|x64
+		{68556AE1-E6A1-4E72-A88E-D9C003DA17D5}.Debug|x64.Build.0 = Debug|x64
+		{68556AE1-E6A1-4E72-A88E-D9C003DA17D5}.Release|x64.ActiveCfg = Release|x64
+		{68556AE1-E6A1-4E72-A88E-D9C003DA17D5}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B17E85B1-5F60-4440-9F9A-3DDE877E8CDF}
+		SolutionGuid = {0011ED21-D504-4814-9D4A-832A1200A87E}
 	EndGlobalSection
 EndGlobal

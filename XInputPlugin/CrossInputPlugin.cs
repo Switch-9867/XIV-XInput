@@ -47,10 +47,6 @@ namespace CrossInput
             KeybindManager.UpdateConfiguration(this.Configuration);
             gameFramework.Update += KeybindManager.OnUpdate;
 
-            // you might normally want to embed resources and load them from the manifest stream
-            var imagePath = Path.Combine(PluginInterface.AssemblyLocation.Directory?.FullName!, "goat.png");
-            var goatImage = this.PluginInterface.UiBuilder.LoadImage(imagePath);
-
             ConfigWindow = new ConfigWindow(this);
             
             WindowSystem.AddWindow(ConfigWindow);
