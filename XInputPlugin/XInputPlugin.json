@@ -1,0 +1,11 @@
+{
+    "Author": "Switch.lol",
+    "Name": "Cross Input",
+    "Punchline": "A plugin to help you rebind keys.",
+    "Description": "This plugin helps you rebind keys at the window-level. use /xinput to open the configuration window.",
+    "ApplicableVersion": "any",
+    "Tags": [
+      "input",
+      "plugin"
+    ]
+  }
