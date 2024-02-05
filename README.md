@@ -2,6 +2,9 @@
 
 This plugin allows you to bind keys to other keys using the low level windows api to send key inputs for minimal input delay.
 
+## Repo
+`https://raw.githubusercontent.com/Switch-9867/DalamudRepo/main/repo.json`
+
 ## Reference Virtual Key Codes 
 | Name                               | Description                                              |
 |------------------------------------|----------------------------------------------------------|
