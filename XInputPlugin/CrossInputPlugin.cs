@@ -16,56 +16,45 @@ namespace CrossInput
         public string Name => "FFXIV Input";
         private const string CommandName = "/xinput";
 
-        private DalamudPluginInterface PluginInterface { get; init; }
-        private ICommandManager CommandManager { get; init; }
+        [PluginService] internal static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
+        [PluginService] internal static ICommandManager CommandManager { get; private set; } = null!;
+        [PluginService] internal static IPluginLog Logger { get; private set; } = null!;
+        [PluginService] internal static IFramework GameFramework { get; private set; } = null!;
+
         public Configuration Configuration { get; init; }
-
         public WindowSystem WindowSystem = new("FFXIV Input");
-
         private ConfigWindow ConfigWindow { get; init; }
 
-        public IPluginLog Logger { get; init; }
 
 
-        public CrossInputPlugin(
-            [RequiredVersion("1.0")] DalamudPluginInterface pluginInterface,
-            [RequiredVersion("1.0")] ICommandManager commandManager,
-            [RequiredVersion("1.0")] IFramework gameFramework,
-            [RequiredVersion("1.0")] IPluginLog logger
-            )
+        public CrossInputPlugin()
         {
 
-            Logger = logger;
-
-
-            this.PluginInterface = pluginInterface;
-            this.CommandManager = commandManager;
-
-            this.Configuration = this.PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
-            this.Configuration.Initialize(this.PluginInterface);
+            Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
 
             KeybindManager.UpdateConfiguration(this.Configuration);
-            gameFramework.Update += KeybindManager.OnUpdate;
+
+            GameFramework.Update += KeybindManager.OnUpdate;
 
             ConfigWindow = new ConfigWindow(this);
             
             WindowSystem.AddWindow(ConfigWindow);
 
-            this.CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
+            CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
             {
                 HelpMessage = "A useful message to display in /xlhelp"
             });
 
-            this.PluginInterface.UiBuilder.Draw += DrawUI;
+            PluginInterface.UiBuilder.Draw += DrawUI;
         }
 
         public void Dispose()
         {
-            this.WindowSystem.RemoveAllWindows();
+            WindowSystem.RemoveAllWindows();
             
             ConfigWindow.Dispose();
             
-            this.CommandManager.RemoveHandler(CommandName);
+            CommandManager.RemoveHandler(CommandName);
         }
 
         private void OnCommand(string command, string args)

@@ -13,19 +13,11 @@ namespace CrossInput
 
         public List<KeyRebind> RebindList { get; set;} = new List<KeyRebind>();
 
-        // the below exist just to make saving less cumbersome
-        [NonSerialized]
-        private DalamudPluginInterface? PluginInterface;
         internal bool isEnabled { get; set; } = true;
-
-        public void Initialize(DalamudPluginInterface pluginInterface)
-        {
-            this.PluginInterface = pluginInterface;
-        }
 
         public void Save()
         {
-            this.PluginInterface!.SavePluginConfig(this);
+            CrossInputPlugin.PluginInterface.SavePluginConfig(this);
         }
 
         internal void RemoveRebind(int locationToRemove)
