@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Dalamud.Game.ClientState.Keys;
@@ -18,6 +19,9 @@ namespace CrossInput
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern void keybd_event(uint bVk, uint bScan, uint dwFlags, uint dwExtraInfo);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr GetForegroundWindow();
+
         // directly sends a key event
         public static void SendKeyEvent(VirtualKey key, bool isUp = false)
         {
@@ -34,6 +38,9 @@ namespace CrossInput
 
         internal static void OnUpdate(IFramework framework)
         {
+            bool isFocused = GetWindowFocusedState();
+            if (!isFocused) return;
+
             if (Configuration.isEnabled)
             {
                 foreach (var keybind in Configuration.RebindList)
@@ -42,6 +49,14 @@ namespace CrossInput
                 }
             }
             
+        }
+
+        private static bool GetWindowFocusedState()
+        {
+            IntPtr focusedWindow = GetForegroundWindow();
+            IntPtr gameWindow = Process.GetCurrentProcess().MainWindowHandle;
+
+            return focusedWindow == gameWindow;
         }
 
         internal static void UpdateConfiguration(Configuration cfg)
