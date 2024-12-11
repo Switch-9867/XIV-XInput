@@ -22,6 +22,15 @@ namespace CrossInput
         [DllImport("user32.dll", SetLastError = true)]
         private static extern IntPtr GetForegroundWindow();
 
+        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+
+
         // directly sends a key event
         public static void SendKeyEvent(VirtualKey key, bool isUp = false)
         {
@@ -50,11 +59,30 @@ namespace CrossInput
             }
             
         }
+        private static IntPtr GetMainWindowFromCurrentProcess()
+        {
+            int currentPid = Process.GetCurrentProcess().Id;
+            IntPtr foundHwnd = IntPtr.Zero;
+
+            EnumWindows((hWnd, lParam) =>
+            {
+                GetWindowThreadProcessId(hWnd, out int windowPid);
+                if (windowPid == currentPid)
+                {
+                    foundHwnd = hWnd;
+                    return false; // stop enumerating
+                }
+                return true; // continue enumerating
+            }, IntPtr.Zero);
+
+            return foundHwnd;
+        }
 
         private static bool GetWindowFocusedState()
         {
             IntPtr focusedWindow = GetForegroundWindow();
             IntPtr gameWindow = Process.GetCurrentProcess().MainWindowHandle;
+            if (gameWindow == IntPtr.Zero) gameWindow = GetMainWindowFromCurrentProcess();
 
             return focusedWindow == gameWindow;
         }
