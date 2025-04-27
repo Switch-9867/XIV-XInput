@@ -42,7 +42,7 @@ namespace CrossInput
 
             CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
             {
-                HelpMessage = "A useful message to display in /xlhelp"
+                HelpMessage = "Opens the configuration window."
             });
 
             PluginInterface.UiBuilder.Draw += DrawUI;

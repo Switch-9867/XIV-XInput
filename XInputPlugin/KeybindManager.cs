@@ -11,7 +11,7 @@ namespace CrossInput
     public static class KeybindManager
     {
 
-        private static Configuration Configuration;
+        private static Configuration? Configuration;
 
         [DllImport("User32.dll")]
         public static extern bool GetAsyncKeyState(VirtualKey vKey);
@@ -47,9 +47,11 @@ namespace CrossInput
 
         internal static void OnUpdate(IFramework framework)
         {
+            CrossInputPlugin.Logger.Debug($"Update Delta: {framework.UpdateDelta}");
             bool isFocused = GetWindowFocusedState();
-            if (!isFocused) return;
+            //if (!isFocused) return;
 
+            if (Configuration == null) return;
             if (Configuration.isEnabled)
             {
                 foreach (var keybind in Configuration.RebindList)
@@ -83,6 +85,9 @@ namespace CrossInput
             IntPtr focusedWindow = GetForegroundWindow();
             IntPtr gameWindow = Process.GetCurrentProcess().MainWindowHandle;
             if (gameWindow == IntPtr.Zero) gameWindow = GetMainWindowFromCurrentProcess();
+
+            CrossInputPlugin.Logger.Debug($"Focused Window: {focusedWindow}");
+            CrossInputPlugin.Logger.Debug($"Game Window: {gameWindow}");
 
             return focusedWindow == gameWindow;
         }
