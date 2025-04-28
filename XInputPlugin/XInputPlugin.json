@@ -1,11 +1,11 @@
 {
     "Author": "Switch.lol",
-    "Name": "Cross Input",
-    "Punchline": "A plugin to help you rebind keys.",
-    "Description": "This plugin helps you rebind keys at the window-level. use /xinput to open the configuration window.",
+    "Name": "XInput",
+    "Punchline": "Rebind Keys that XIV doesn't let you.",
+    "Description": "This plugin allows you to rebid any VirtualKey to any other VirtualKey to use in game.",
     "ApplicableVersion": "any",
     "Tags": [
-      "input",
-      "plugin"
+        "input",
+        "plugin"
     ]
-  }
+}
