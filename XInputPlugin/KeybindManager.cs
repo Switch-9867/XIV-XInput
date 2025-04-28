@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Dalamud.Game.ClientState.Keys;
@@ -10,13 +11,25 @@ namespace CrossInput
     public static class KeybindManager
     {
 
-        private static Configuration Configuration;
+        private static Configuration? Configuration;
 
         [DllImport("User32.dll")]
         public static extern bool GetAsyncKeyState(VirtualKey vKey);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern void keybd_event(uint bVk, uint bScan, uint dwFlags, uint dwExtraInfo);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr GetForegroundWindow();
+
+        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+
 
         // directly sends a key event
         public static void SendKeyEvent(VirtualKey key, bool isUp = false)
@@ -34,6 +47,11 @@ namespace CrossInput
 
         internal static void OnUpdate(IFramework framework)
         {
+            CrossInputPlugin.Logger.Debug($"Update Delta: {framework.UpdateDelta}");
+            bool isFocused = GetWindowFocusedState();
+            //if (!isFocused) return;
+
+            if (Configuration == null) return;
             if (Configuration.isEnabled)
             {
                 foreach (var keybind in Configuration.RebindList)
@@ -42,6 +60,36 @@ namespace CrossInput
                 }
             }
             
+        }
+        private static IntPtr GetMainWindowFromCurrentProcess()
+        {
+            int currentPid = Process.GetCurrentProcess().Id;
+            IntPtr foundHwnd = IntPtr.Zero;
+
+            EnumWindows((hWnd, lParam) =>
+            {
+                GetWindowThreadProcessId(hWnd, out int windowPid);
+                if (windowPid == currentPid)
+                {
+                    foundHwnd = hWnd;
+                    return false; // stop enumerating
+                }
+                return true; // continue enumerating
+            }, IntPtr.Zero);
+
+            return foundHwnd;
+        }
+
+        private static bool GetWindowFocusedState()
+        {
+            IntPtr focusedWindow = GetForegroundWindow();
+            IntPtr gameWindow = Process.GetCurrentProcess().MainWindowHandle;
+            if (gameWindow == IntPtr.Zero) gameWindow = GetMainWindowFromCurrentProcess();
+
+            CrossInputPlugin.Logger.Debug($"Focused Window: {focusedWindow}");
+            CrossInputPlugin.Logger.Debug($"Game Window: {gameWindow}");
+
+            return focusedWindow == gameWindow;
         }
 
         internal static void UpdateConfiguration(Configuration cfg)
